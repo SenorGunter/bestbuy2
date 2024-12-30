@@ -4,7 +4,9 @@ import store
 # setup initial stock of inventory
 product_list = [ products.Product("MacBook Air M2", price=1450, quantity=100),
                  products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                 products.Product("Google Pixel 7", price=500, quantity=250)
+                 products.Product("Google Pixel 7", price=500, quantity=250),
+                 products.Non_Stock_Products("Windows License", price=125),
+                 products.Limited_Products("Shipping", price=10, quantity=250, maximum=1)
                ]
 best_buy = store.Store(product_list)
 
@@ -42,15 +44,15 @@ def make_order():
             product_usable = best_buy.get_products()[product_id]
             quantity_input = input("What amount do you want?")
 
-            if product_usable.get_quantity() > int(quantity_input):
-                shoppinglist.append((product_usable, int(quantity_input)))
-
-            elif product_usable.get_quantity() == int(quantity_input):
-                shoppinglist.append((product_usable, int(quantity_input)))
-                print("The stock ran out with this order")
-
-            else:
-                print("Entered quantity is too great")
+            # if product_usable.get_quantity() > int(quantity_input):
+            shoppinglist.append((product_usable, int(quantity_input)))
+            #
+            # elif product_usable.get_quantity() == int(quantity_input):
+            #     shoppinglist.append((product_usable, int(quantity_input)))
+            #     print("The stock ran out with this order")
+            #
+            # else:
+            #     print("Entered quantity is too great")
         else:
             break
 
@@ -61,7 +63,7 @@ def main():
     while True:
         list_of_commands = {"1": lambda: list_all(),
                             "2": lambda: print(total_amount()),
-                            "3": lambda: make_order(),
+                            "3": lambda: (list_all(), make_order()),
                             "4": lambda: exit()}
 
         menu()

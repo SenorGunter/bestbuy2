@@ -35,5 +35,8 @@ class Store:
     def order(self, shopping_list) -> float:
         total_cost = 0.0
         for product, order in shopping_list:
-            total_cost += product.buy(order)
+            try:
+                total_cost += product.buy(order)
+            except ValueError:
+                print(ValueError)
         return total_cost

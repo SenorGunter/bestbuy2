@@ -49,3 +49,30 @@ class Product:
             return float(quantity * self.price)
         else:
             return ValueError
+
+
+class Non_Stock_Products(Product):
+    def __init__(self, name, price):
+        super().__init__(name, price, 0)
+
+    def show(self) -> str:
+        return f"{self.name}, Price: {self.price} (Non-stocked product - no inventory tracking)"
+
+    def buy(self, quantity) -> float:
+        return float(quantity * self.price)
+
+
+class Limited_Products(Product):
+    def __init__(self, name, price, quantity, maximum=1):
+        super().__init__(name, price, quantity)
+        self.maximum = maximum
+
+    def show(self) -> str:
+        return f"{self.name}, Price: {self.price}, Quantity Limit: {self.maximum}"
+
+    def buy(self, quantity):
+        if quantity > self.maximum:
+            print(f"Over the max. quantity for {self.name} \n"
+                  f"Lowered to {self.maximum}")
+            return self.maximum
+        return float(quantity * self.price)
