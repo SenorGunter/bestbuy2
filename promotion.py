@@ -13,7 +13,6 @@ class Promotion(ABC):
         self.name = name
 
     def __str__(self):
-        """ Returns the name of the promotion """
         return self.name
 
     @abstractmethod
@@ -25,7 +24,7 @@ class Promotion(ABC):
             raise ValueError("Quantity must be non-negative")
 
 
-class SecondHalfPricePromotion(Promotion):
+class SecondHalfPrice(Promotion):
     def __init__(self):
         """ Initializes the second half price promotion with a name, so str() can return a human-readable name """
         super().__init__("Second Half Price!")
@@ -46,7 +45,7 @@ class SecondHalfPricePromotion(Promotion):
         return total_cost
 
 
-class ThirdOneFreePromotion(Promotion):
+class ThirdOneFree(Promotion):
     def __init__(self):
         """ Initializes the third one free promotion with a name, so str() can return a human-readable name """
         super().__init__("Third One Free!")
@@ -66,7 +65,7 @@ class ThirdOneFreePromotion(Promotion):
         return total_cost
 
 
-class PercentDiscountPromotion(Promotion):
+class PercentDiscount(Promotion):
     def __init__(self, percent):
         """ Initializes the percent discount promotion with a name and a percent discount """
         if not isinstance(percent, (int, float)):
@@ -76,7 +75,7 @@ class PercentDiscountPromotion(Promotion):
         super().__init__(f"{percent}% Discount!")
         self.percent = percent
 
-    def apply_promotion(self, product: "Product", quantity: int) -> float:
+    def apply_promotion(self, product: "Product", quantity):
         """ Applies the percent discount promotion to the product and returns the total cost """
         super().apply_promotion(product, quantity)
         if quantity == 0:
